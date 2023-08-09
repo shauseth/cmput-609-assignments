@@ -1,0 +1,211 @@
+w8 - a previous year's final exam
+
+
+QUESTION 0. Your name:
+--------------------------------------------------------------
+Shaurya Seth
+--------------------------------------------------------------
+
+
+This assignment has been written as a plain text file that you can edit with any text editor to provide your answers. Every place which you are to edit is indicated between two lines of dashes. For example, at the top you should fill in your name between the two lines of dashes. Do not remove or edit the lines of dashes or anything outside the lines of dashes. Some questions start with some text between the dashes ending with a colon (:); your answer should be written in after the colon. Some later questions will ask you to insert a single letter between two empty brackets [] (e.g., to give the answer 'true' to a true/false question, you will insert a T to get [T]).
+
+If you prefer to provide any parts of your answers written on paper, you will need to take photographs of your sheets of paper and submit those, together with clear indications of what questions are answered where. However, that should not be necessary; your best course is to provide your answers entirely within this file.
+
+There are 17 questions, some with multiple parts, for 98 points  total (12+4+3+6+5+3+8+4+9+4+4+6+3+6+11+7+3). Read each question carefully.
+
+
+
+
+QUESTION 1. The Four Components. (12 pts) 
+A full RL agent, as described in the last chapter of the book, consists of four basic components, each of which could be learned, and each of which can be characterized as a function applied one or more times per time step. For example, the most basic component is the policy, which is a function from agent state to action (or more generally from agent state to option). The policy is typically used to determine the action selected by the agent at each time step, thus determining the agent's behavior. 
+
+List the other three basic components of the agent, identifying for each its function -- inputs and outputs -- and the role it plays in the agent (similar to how we have done above for the policy). 
+--------------------------------------------------------------
+Value function: maps states to values, determines desirability of a state
+Model: maps states and actions to next states and reward, allows planning to occur
+State-update function: maps observations and actions to states, deals with partial observability of the environment
+--------------------------------------------------------------
+
+
+QUESTION 2. The Planner. (4 pts)
+The planner is an important part of an agent but is not one of the four components we are looking for in the question above. The planner could proceed independently of the events occurring on a time step. In this case, the planner can be seen as taking as input one of the four components of a full RL agent and returning another. What are these two components?
+--------------------------------------------------------------
+Input: Model
+Output: Value function
+--------------------------------------------------------------
+
+
+QUESTION 3. What is John McCarthy's definition of intelligence? (3 pts)
+--------------------------------------------------------------
+Intelligence is the computational part of the ability to achieve goals in the world
+--------------------------------------------------------------
+
+
+
+QUESTION 4. Advantages of Policy-Gradient Methods. (6 pts)
+What are the advantages and potential advantages of policy-based methods, such as policy-gradient methods, relative to control methods that learn only an action-value function? You will get 1 point for each valid advantage up to a maximum of 6.
+--------------------------------------------------------------
+• The approximate policy can approach a deterministic policy.
+• The selection of actions with arbitrary probability is enabled.
+• The policy may be a simpler function to approximate.
+• Allows injecting prior knowledge about desired form of policy.
+• Action probabilities change smoothly with learned parameters.
+• Allow continuous action spaces with infinite number of actions.
+--------------------------------------------------------------
+
+
+QUESTION 5. Bellman Errors. (5 pts)
+
+Consider a model-free policy evaluation problem, using linear function approximation and a single stream of experience. Generally speaking, is it better to learn to minimize the Bellman error or the projected Bellman error? Why?
+--------------------------------------------------------------
+It is better to minimize the projected Bellman error because the Bellman error is not learnable. The projected Bellman error can be learned directly from the data distribution and will have a unique minimizer.
+--------------------------------------------------------------
+
+
+QUESTION 6. The Deadly Triad. (3 pts)
+What three features of a reinforcement learning algorithm or problem, when they are combined, risk divergence of policy evaluation if Gradient-TD or Emphatic-TD methods are not used?
+--------------------------------------------------------------
+Function approximation
+Bootstrapping
+Off-policy training
+--------------------------------------------------------------
+
+
+QUESTION 7. Choosing bootstrapping parameters (3 parts for 8 pts total)
+
+Consider how one might choose the n parameter of n-step methods and the lambda parameter of TD(lambda). Consider two cases for the same environment: Case 1 with good features such that the environment is, in effect, mostly Markov, and Case 2 with poor features such that it is difficult to distinguish some states that have different values. 
+
+a) In which of these two cases would we prefer larger n?
+--------------------------------------------------------------
+Case 2 with poor features
+--------------------------------------------------------------
+
+b) In which of these two cases would we prefer larger lambda? 
+--------------------------------------------------------------
+Case 2 with poor features
+--------------------------------------------------------------
+
+c) Now, suppose we had infinite data and we were only concerned with the asymptotic quality of the learned function after infinite experience. What values of lambda and n would we prefer in each of the two cases? Be as specific as possible. (add your answer after the :)
+--------------------------------------------------------------
+Case 1, lambda: 0
+Case 1,      n: 1
+Case 2, lambda: 1
+Case 2,      n: 100 (or large)
+--------------------------------------------------------------
+
+
+QUESTION 8. (4 pts) What is the most important difference between an eligibility-trace method with lambda=1 and an n-step method with a very high n?
+--------------------------------------------------------------
+n-step methods only factor in a fixed number of states
+--------------------------------------------------------------
+
+
+QUESTION 9. Problems with Discounting (three parts for 9 points total) 
+Discounting is sometimes problematic with function approximation, forcing us to use the average reward setting. 
+
+a) When is discounting problematic? 
+--------------------------------------------------------------
+Not suitable for continuing tasks
+--------------------------------------------------------------
+
+b) What difficulty occurs?
+--------------------------------------------------------------
+Agent cares more about immediate rewards than delayed
+--------------------------------------------------------------
+
+c) Describe two different, important reinforcement-learning settings using function approximation in which discounting is perfectly acceptable.
+--------------------------------------------------------------
+Episodic setting
+Bandits
+--------------------------------------------------------------
+
+
+QUESTION 10. Average Reward. (4 pts)
+
+Consider a sequence of rewards 5 3 1 1 1 1 1 1... continuing to infinity. Assume that these rewards correspond to states A B C C C C C C..., where state A precedes the reward of 5, under some specific policy. Assume that these infinite sequences are the whole of the agent's experience, and that the rewards and state transitions are deterministic. In the average-reward setting, what are the average reward and the differential values of the three states? (add your answer after the :)
+--------------------------------------------------------------
+Average reward (rate): 1
+Diff. value of state A: 4
+Diff. value of state B: 2
+Diff. value of state C: 0
+--------------------------------------------------------------
+
+
+QUESTION 11. Semi-gradient TD methods. (4 pts)
+Why are many of the TD methods with function approximation referred to as semi-gradient methods? 
+--------------------------------------------------------------
+They do not use the complete (real) gradient only a partial (bootstrapped) gradient
+--------------------------------------------------------------
+
+
+QUESTION 12. Baseline and Bias. (2 parts for a total of 6 pts)
+
+a) Does the introduction of a baseline affect the fixed point of convergence (if there is one) of REINFORCE methods? Why or why not? 
+--------------------------------------------------------------
+No
+--------------------------------------------------------------
+
+b) Now consider actor-critic methods with the critic learned by a Monte Carlo method. Does the use of the critic introduce bias into the gradient estimates of the actor? Why or why not?
+--------------------------------------------------------------
+No
+--------------------------------------------------------------
+
+
+QUESTION 13. GVFs. (3 pts)
+In what three ways do general value functions (GVFs) generalize conventional state-value functions?
+--------------------------------------------------------------
+• Use cumulants instead of rewards
+• Different discount rate at each step
+• Off-policy learning
+--------------------------------------------------------------
+
+
+QUESTION 14. Forward view or Backward view? (6 pts total)
+Many reinforcement learning algorithms, such as TD(lambda), can be viewed in two ways, the forward view and the backward view.  The former is particularly useful for theoretical analysis and the latter is particularly useful for developing and understanding mechanisms for online implementation of the algorithms.  For each of the following concepts, indicate whether it is primarily associated with the forward view or the backward view, by writing either F or B between the empty brackets []:
+--------------------------------------------------------------
+[F] the lambda return 
+[B] eligibility traces
+[F] backup diagrams
+[F] discounting
+[F] n-step methods
+[B] the TD error
+--------------------------------------------------------------
+
+
+QUESTION 15. True or False (11 pts total)
+Answer this question by inserting either a T (for true) or an F (for false) between the empty brackets [] at the start of each line.
+
+For any stationary MDP, assuming a step-size sequence satisfying the standard stochastic approximation criteria, and a fixed policy, convergence in the prediction problem is guaranteed for:
+--------------------------------------------------------------
+[T] off-policy TD(0) with tabular state representation
+[F] off-policy TD(1) with linear function approximation
+[T] on-policy TD(0) with linear function approximation
+[F] off-policy TD(0) with linear function approximation
+[T] on-policy TD(lambda) with linear function approximation
+[F] on-policy TD(lambda) with nonlinear function approximation
+[F] dynamic programming with linear function approximation
+[F] dynamic programming with nonlinear function approximation
+[T] gradient-descent Monte Carlo with linear function approximation
+[F] gradient-descent Monte Carlo with nonlinear function approximation
+[F] off-policy TD(0) with state-aggregation function approximation
+--------------------------------------------------------------
+
+
+QUESTION 16. Converging, Diverging, or Neither (7 pts total)
+In the control problem, under the same conditions as the previous question, and assuming an epsilon-greedy behavior policy, are the following algorithms guaranteed to converge [C], possibly diverging [D], or neither [N]? (fill in one of these three letters (C, D, or N) between the empty brackets []) Assume the behavior policy is epsilon-greedy.
+--------------------------------------------------------------
+[C] one-step Q-learning with tabular state representation
+[C] Sarsa(0) with tabular state representation
+[N] Sarsa(0) with linear function approximation
+[N] Expected Sarsa(0) with linear function approximation
+[D] one-step Q-learning with linear function approximation
+[D] one-step Double Q-learning with linear function approximation
+[N] one-step Q-learning with state-aggregation function approximation
+--------------------------------------------------------------
+
+
+QUESTION 17. (3 pts) True or False:
+For a fixed policy, TD(0) with linear function approximation converges to a local minimum in the Mean Squared Error between the approximate value function and the true value function for that policy.
+--------------------------------------------------------------
+False, it converges to the TD fixed point
+--------------------------------------------------------------
